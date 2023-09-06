@@ -59,7 +59,7 @@ const loginUser = async (
         }
     );
 
-    return refreshToken;
+    return accessToken;
 };
 
 export const AuthService = { createUser, loginUser };
