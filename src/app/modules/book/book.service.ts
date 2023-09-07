@@ -8,9 +8,32 @@ const createBook = async (data: Book): Promise<Book> => {
     return book;
 };
 
-const getAllBooks = async (): Promise<Book[]> => {
-    const books = await prisma.book.findMany();
-    return books;
+const getAllBooks = async (
+    page: number,
+    limit: number,
+    sortBy: string,
+    sortOrder: 'asc' | 'desc'
+): Promise<Book[] | any> => {
+    console.log(page, limit);
+
+    const books = await prisma.book.findMany({
+        take: limit,
+        skip: (page - 1) * limit,
+        orderBy: {
+            [sortBy]: sortOrder,
+        },
+    });
+
+    const total = await prisma.book.count();
+    return {
+        meta: {
+            page,
+            size: limit,
+            total,
+            totalPages: Math.ceil(total / limit),
+        },
+        data: books,
+    };
 };
 
 const getBookById = async (id: string): Promise<Book | null> => {
@@ -22,14 +45,39 @@ const getBookById = async (id: string): Promise<Book | null> => {
     return book;
 };
 
-const getBooksByCategoryId = async (categoryId: string): Promise<Book[]> => {
+const getBooksByCategoryId = async (
+    page: number,
+    limit: number,
+    sortBy: string,
+    sortOrder: 'asc' | 'desc',
+    categoryId: string
+): Promise<any | Book[]> => {
     const books = await prisma.book.findMany({
+        where: {
+            categoryId,
+        },
+        take: limit,
+        skip: (page - 1) * limit,
+        orderBy: {
+            [sortBy]: sortOrder,
+        },
+    });
+
+    const total = await prisma.book.count({
         where: {
             categoryId,
         },
     });
 
-    return books;
+    return {
+        meta: {
+            page,
+            size: limit,
+            total,
+            totalPages: Math.ceil(total / limit),
+        },
+        data: books,
+    };
 };
 
 const updateBook = async (id: string, data: Partial<Book>): Promise<Book> => {

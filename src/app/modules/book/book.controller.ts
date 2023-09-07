@@ -15,12 +15,24 @@ const createBook = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllBooks = catchAsync(async (req: Request, res: Response) => {
-    const result = await BookService.getAllBooks();
+    const {
+        page = 1,
+        limit = 10,
+        sortBy = 'id',
+        sortOrder = 'asc',
+    } = req.query;
+    const result = await BookService.getAllBooks(
+        Number(page),
+        Number(limit),
+        sortBy as string,
+        sortOrder as 'asc' | 'desc'
+    );
     sendResponse(res, {
         statusCode: OK,
         success: true,
         message: '🆗 All Books fetched successfully',
-        data: result,
+        meta: result?.meta,
+        data: result?.data,
     });
 });
 
@@ -35,13 +47,27 @@ const getBookById = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getBooksByCategoryId = catchAsync(async (req: Request, res: Response) => {
+    const {
+        page = 1,
+        limit = 10,
+        sortBy = 'id',
+        sortOrder = 'asc',
+    } = req.query;
+
     const { categoryId } = req.params;
-    const result = await BookService.getBooksByCategoryId(categoryId);
+    const result = await BookService.getBooksByCategoryId(
+        Number(page),
+        Number(limit),
+        sortBy as string,
+        sortOrder as 'asc' | 'desc',
+        categoryId
+    );
     sendResponse(res, {
         statusCode: OK,
         success: true,
         message: '🆗 Categorised Books fetched successfully',
-        data: result,
+        meta: result?.meta,
+        data: result.data,
     });
 });
 

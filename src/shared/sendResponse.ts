@@ -23,6 +23,10 @@ const sendResponse = <T>(res: Response, data: IApiReponse<T>): void => {
         data: data.data || null || undefined,
     };
 
+    if (responseData.token === null || responseData.token === undefined) {
+        delete responseData.token;
+    }
+
     res.status(data.statusCode).json(responseData);
 };
 

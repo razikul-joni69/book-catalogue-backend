@@ -20,6 +20,7 @@ model User {
   address          String
   profileImg       String
   reviewAndRatings ReviewAndRating[]
+  orders           Order[]
 }
 
 enum Roles {
@@ -43,6 +44,7 @@ model Book {
   categoryId       String
   category         Category          @relation(fields: [categoryId], references: [id])
   reviewAndRatings ReviewAndRating[]
+  orders           Order[]
 }
 
 model ReviewAndRating {
@@ -53,4 +55,20 @@ model ReviewAndRating {
   user   User   @relation(fields: [userId], references: [id])
   bookId String
   book   Book   @relation(fields: [bookId], references: [id])
+}
+
+model Order {
+  id           String   @id @default(uuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+  orderedBooks String
+  book         Book     @relation(fields: [orderedBooks], references: [id])
+  status       Status   @default(pending)
+  createdAt    DateTime @default(now())
+}
+
+enum Status {
+  pending
+  shipped
+  delevered
 }
