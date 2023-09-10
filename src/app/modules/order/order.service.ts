@@ -10,29 +10,13 @@ const createOrder = async (
     orderedBooks: OrderedBook[],
     userId: string
 ): Promise<Order | any> => {
-    const newOrder = await prisma.order.create({
+    const order = await prisma.order.create({
         data: {
             userId,
-            orderedBooks: {
-                create: orderedBooks.map(book => ({
-                    quantity: book.quantity,
-                    book: {
-                        connect: {
-                            id: book.bookId,
-                        },
-                    },
-                })),
-            },
-            status: 'pending',
-            createdAt: new Date(),
+            orderedBooks, // Assign the JSON structure directly
         },
     });
-
-    return newOrder;
-    // const order = await prisma.order.create({
-    //     data,
-    // });
-    // return order;
+    return order;
 };
 
 const getAllOrders = async (): Promise<Order[]> => {
@@ -40,13 +24,20 @@ const getAllOrders = async (): Promise<Order[]> => {
     return orders;
 };
 
-const getAllUserOrders = async (id: string): Promise<Order[]> => {
+const getSpecificUserOrders = async (
+    userId: string
+): Promise<Order[] | any> => {
     const orders = await prisma.order.findMany({
         where: {
-            userId: id,
+            userId,
         },
     });
+
     return orders;
 };
 
-export const OrderService = { createOrder, getAllOrders, getAllUserOrders };
+export const OrderService = {
+    createOrder,
+    getAllOrders,
+    getSpecificUserOrders,
+};

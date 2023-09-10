@@ -44,7 +44,7 @@ model Book {
   categoryId       String
   category         Category          @relation(fields: [categoryId], references: [id])
   reviewAndRatings ReviewAndRating[]
-  orders           Order[]
+  // orders           Order[]
 }
 
 model ReviewAndRating {
@@ -57,12 +57,31 @@ model ReviewAndRating {
   book   Book   @relation(fields: [bookId], references: [id])
 }
 
+// model Order {
+//   id           String   @id @default(uuid())
+//   userId       String
+//   user         User     @relation(fields: [userId], references: [id])
+//   orderedBooks String
+//   book         Book     @relation(fields: [orderedBooks], references: [id])
+//   status       Status   @default(pending)
+//   createdAt    DateTime @default(now())
+// }
+
+// model Order {
+//   id           String   @id @default(uuid())
+//   userId       String
+//   user         User     @relation(fields: [userId], references: [id])
+//   orderedBooks Json // Updated to represent a one-to-many relationship with Book
+//   status       Status   @default(pending)
+//   createdAt    DateTime @default(now())
+//   Book         Book?    @relation(fields: [bookId], references: [id])
+//   bookId       String?
+// }
 model Order {
   id           String   @id @default(uuid())
   userId       String
   user         User     @relation(fields: [userId], references: [id])
-  orderedBooks String
-  book         Book     @relation(fields: [orderedBooks], references: [id])
+  orderedBooks Json // Change to JSON type
   status       Status   @default(pending)
   createdAt    DateTime @default(now())
 }

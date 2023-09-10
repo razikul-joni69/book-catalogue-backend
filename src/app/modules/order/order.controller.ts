@@ -14,7 +14,6 @@ const createOrder = catchAsync(async (req: Request, res: Response) => {
         authorization as string,
         config.jwt.secret as Secret
     );
-    console.log(orderedBooks);
 
     const result = await OrderService.createOrder(orderedBooks, user.userId);
     sendResponse(res, {
@@ -35,15 +34,26 @@ const getAllOrders = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
-const getAllUserOrders = catchAsync(async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const result = await OrderService.getAllUserOrders(id);
-    sendResponse(res, {
-        statusCode: CREATED,
-        success: true,
-        message: '🆗 All Orders fetched successfully',
-        data: result,
-    });
-});
+const getSpecificUserOrders = catchAsync(
+    async (req: Request, res: Response) => {
+        const { authorization } = req.headers;
+        const user = jwtHelpers.verifyToken(
+            authorization as string,
+            config.jwt.secret as Secret
+        );
 
-export const OrderController = { createOrder, getAllOrders, getAllUserOrders };
+        const result = await OrderService.getSpecificUserOrders(user?.userId);
+        sendResponse(res, {
+            statusCode: OK,
+            success: true,
+            message: '🆗 Specific User Orders fetched successfully',
+            data: result,
+        });
+    }
+);
+
+export const OrderController = {
+    createOrder,
+    getAllOrders,
+    getSpecificUserOrders,
+};
