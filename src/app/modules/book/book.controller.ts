@@ -20,8 +20,13 @@ const getAllBooks = catchAsync(async (req: Request, res: Response) => {
         limit = 10,
         sortBy = 'id',
         sortOrder = 'asc',
+        search = '',
+        ...filteredData
     } = req.query;
+
     const result = await BookService.getAllBooks(
+        search as string,
+        filteredData,
         Number(page),
         Number(limit),
         sortBy as string,

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Book } from '@prisma/client';
 import prisma from '../../../shared/prisma';
 
@@ -9,14 +10,53 @@ const createBook = async (data: Book): Promise<Book> => {
 };
 
 const getAllBooks = async (
+    search: string,
+    filteredData: any,
     page: number,
     limit: number,
     sortBy: string,
     sortOrder: 'asc' | 'desc'
 ): Promise<Book[] | any> => {
-    console.log(page, limit);
-
     const books = await prisma.book.findMany({
+        where: {
+            OR: [
+                {
+                    title: {
+                        contains: search,
+                        mode: 'insensitive',
+                    },
+                },
+                {
+                    author: {
+                        contains: search,
+                        mode: 'insensitive',
+                    },
+                },
+                {
+                    genre: {
+                        contains: search,
+                        mode: 'insensitive',
+                    },
+                },
+            ],
+            AND: [
+                {
+                    price: {
+                        gte: filteredData?.minPrice
+                            ? parseFloat(filteredData?.minPrice.toString())
+                            : undefined,
+                    },
+                },
+                {
+                    price: {
+                        lte: filteredData?.maxPrice
+                            ? parseFloat(filteredData?.maxPrice.toString())
+                            : undefined,
+                    },
+                },
+            ],
+            categoryId: filteredData?.category,
+        },
         take: limit,
         skip: (page - 1) * limit,
         orderBy: {
@@ -24,7 +64,47 @@ const getAllBooks = async (
         },
     });
 
-    const total = await prisma.book.count();
+    const total = await prisma.book.count({
+        where: {
+            OR: [
+                {
+                    title: {
+                        contains: search,
+                        mode: 'insensitive',
+                    },
+                },
+                {
+                    author: {
+                        contains: search,
+                        mode: 'insensitive',
+                    },
+                },
+                {
+                    genre: {
+                        contains: search,
+                        mode: 'insensitive',
+                    },
+                },
+            ],
+            AND: [
+                {
+                    price: {
+                        gte: filteredData?.minPrice
+                            ? parseFloat(filteredData?.minPrice.toString())
+                            : undefined,
+                    },
+                },
+                {
+                    price: {
+                        lte: filteredData?.maxPrice
+                            ? parseFloat(filteredData?.maxPrice.toString())
+                            : undefined,
+                    },
+                },
+            ],
+            categoryId: filteredData?.category,
+        },
+    });
     return {
         meta: {
             page,
