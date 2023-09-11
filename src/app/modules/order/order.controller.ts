@@ -52,8 +52,22 @@ const getSpecificUserOrders = catchAsync(
     }
 );
 
+const getOrderByOrderId = catchAsync(async (req: Request, res: Response) => {
+    const { orderId } = req.params;
+    console.log(orderId);
+    
+    const result = await OrderService.getOrderByOrderId(orderId);
+    sendResponse(res, {
+        statusCode: OK,
+        success: true,
+        message: '🆗 Order Data fetched successfully',
+        data: result,
+    });
+});
+
 export const OrderController = {
     createOrder,
     getAllOrders,
     getSpecificUserOrders,
+    getOrderByOrderId,
 };

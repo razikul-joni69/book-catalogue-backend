@@ -36,8 +36,19 @@ const getSpecificUserOrders = async (
     return orders;
 };
 
+const getOrderByOrderId = async (orderId: string): Promise<Order[] | any> => {
+    const order = await prisma.order.findMany({
+        where: {
+            userId: orderId,
+        },
+    });
+
+    return order;
+};
+
 export const OrderService = {
     createOrder,
     getAllOrders,
     getSpecificUserOrders,
+    getOrderByOrderId,
 };

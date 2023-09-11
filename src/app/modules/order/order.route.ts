@@ -9,11 +9,21 @@ router.post(
     auth(ENUM_USER_ROLE.CUSTOMER),
     OrderController.createOrder
 );
-// router.get('/', auth(ENUM_USER_ROLE.ADMIN), OrderController.getAllOrders);
+router.get(
+    '/get-all-orders',
+    auth(ENUM_USER_ROLE.ADMIN),
+    OrderController.getAllOrders
+);
 router.get(
     '/',
     auth(ENUM_USER_ROLE.CUSTOMER),
     OrderController.getSpecificUserOrders
+);
+// TODO: FIXIT: now working. not hitting the route
+router.get(
+    '/:orderId/test ',
+    // auth(ENUM_USER_ROLE.CUSTOMER, ENUM_USER_ROLE.ADMIN),
+    OrderController.getOrderByOrderId
 );
 
 export const OrderRoutes = router;

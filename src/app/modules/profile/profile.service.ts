@@ -1,0 +1,13 @@
+import { User } from '@prisma/client';
+import prisma from '../../../shared/prisma';
+
+const getProfile = async (userId: string): Promise<User | null> => {
+    const user = await prisma.user.findUnique({
+        where: {
+            id: userId,
+        },
+    });
+    return user;
+};
+
+export const ProfileService = { getProfile };
