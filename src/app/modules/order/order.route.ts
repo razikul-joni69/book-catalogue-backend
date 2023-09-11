@@ -9,20 +9,16 @@ router.post(
     auth(ENUM_USER_ROLE.CUSTOMER),
     OrderController.createOrder
 );
-router.get(
-    '/get-all-orders',
-    auth(ENUM_USER_ROLE.ADMIN),
-    OrderController.getAllOrders
-);
+
 router.get(
     '/',
-    auth(ENUM_USER_ROLE.CUSTOMER),
-    OrderController.getSpecificUserOrders
+    auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.CUSTOMER),
+    OrderController.getOrders
 );
-// TODO: FIXIT: now working. not hitting the route
+
 router.get(
-    '/:orderId/test ',
-    // auth(ENUM_USER_ROLE.CUSTOMER, ENUM_USER_ROLE.ADMIN),
+    '/:orderId',
+    auth(ENUM_USER_ROLE.CUSTOMER, ENUM_USER_ROLE.ADMIN),
     OrderController.getOrderByOrderId
 );
 

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { CREATED, OK } from 'http-status';
-import { Secret } from 'jsonwebtoken';
+import { JwtPayload, Secret } from 'jsonwebtoken';
 import config from '../../../config';
 import { jwtHelpers } from '../../../helpers/jwtHelpers';
 import catchAsync from '../../../shared/catchAsync';
@@ -24,39 +24,35 @@ const createOrder = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
-const getAllOrders = catchAsync(async (req: Request, res: Response) => {
-    const result = await OrderService.getAllOrders();
+const getOrders = catchAsync(async (req: Request, res: Response) => {
+    const { authorization } = req.headers;
+    const user = jwtHelpers.verifyToken(
+        authorization as string,
+        config.jwt.secret as Secret
+    );
+
+    const result = await OrderService.getOrders(user);
     sendResponse(res, {
         statusCode: OK,
         success: true,
-        message: '🆗 All Orders fetched successfully',
+        message: '🆗 Orders Data fetched successfully',
         data: result,
     });
 });
 
-const getSpecificUserOrders = catchAsync(
-    async (req: Request, res: Response) => {
-        const { authorization } = req.headers;
-        const user = jwtHelpers.verifyToken(
-            authorization as string,
-            config.jwt.secret as Secret
-        );
-
-        const result = await OrderService.getSpecificUserOrders(user?.userId);
-        sendResponse(res, {
-            statusCode: OK,
-            success: true,
-            message: '🆗 Specific User Orders fetched successfully',
-            data: result,
-        });
-    }
-);
-
 const getOrderByOrderId = catchAsync(async (req: Request, res: Response) => {
     const { orderId } = req.params;
-    console.log(orderId);
-    
-    const result = await OrderService.getOrderByOrderId(orderId);
+    const { authorization } = req.headers;
+    const user = jwtHelpers.verifyToken(
+        authorization as string,
+        config.jwt.secret as Secret
+    );
+
+    const result = await OrderService.getOrderByOrderId(
+        orderId,
+        user as JwtPayload
+    );
+
     sendResponse(res, {
         statusCode: OK,
         success: true,
@@ -67,7 +63,6 @@ const getOrderByOrderId = catchAsync(async (req: Request, res: Response) => {
 
 export const OrderController = {
     createOrder,
-    getAllOrders,
-    getSpecificUserOrders,
+    getOrders,
     getOrderByOrderId,
 };

@@ -1,4 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Order } from '@prisma/client';
+import { UNAUTHORIZED } from 'http-status';
+import { JwtPayload } from 'jsonwebtoken';
+import ApiError from '../../../errors/ApiError';
 import prisma from '../../../shared/prisma';
 
 type OrderedBook = {
@@ -19,36 +23,46 @@ const createOrder = async (
     return order;
 };
 
-const getAllOrders = async (): Promise<Order[]> => {
-    const orders = await prisma.order.findMany();
-    return orders;
+const getOrders = async (user: JwtPayload): Promise<Order[] | any> => {
+    if (user.role === 'admin') {
+        const orders = await prisma.order.findMany();
+        return orders;
+    } else if (user.role === 'customer') {
+        const orders = await prisma.order.findMany({
+            where: {
+                userId: user.userId,
+            },
+        });
+
+        return orders;
+    }
 };
 
-const getSpecificUserOrders = async (
-    userId: string
-): Promise<Order[] | any> => {
-    const orders = await prisma.order.findMany({
+const getOrderByOrderId = async (
+    orderId: string,
+    user: JwtPayload
+): Promise<Order[]> => {
+    const order = await prisma.order.findFirst({
         where: {
-            userId,
+            id: orderId,
         },
     });
 
-    return orders;
-};
+    if (order?.userId === user?.userId || user?.role === 'admin') {
+        const order = await prisma.order.findMany({
+            where: {
+                id: orderId,
+            },
+        });
 
-const getOrderByOrderId = async (orderId: string): Promise<Order[] | any> => {
-    const order = await prisma.order.findMany({
-        where: {
-            userId: orderId,
-        },
-    });
-
-    return order;
+        return order;
+    } else {
+        throw new ApiError(UNAUTHORIZED, 'Unauthorized Access');
+    }
 };
 
 export const OrderService = {
     createOrder,
-    getAllOrders,
-    getSpecificUserOrders,
+    getOrders,
     getOrderByOrderId,
 };
