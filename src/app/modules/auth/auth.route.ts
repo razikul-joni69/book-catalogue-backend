@@ -5,12 +5,12 @@ import { AuthValidation } from './auth.validation';
 const router = express.Router();
 
 router.post(
-    '/auth/signup',
+    '/signup',
     validateRequest(AuthValidation.createUser),
     AuthController.createUser
 );
 router.post(
-    '/auth/signin',
+    '/signin',
     validateRequest(AuthValidation.loginUser),
     AuthController.loginUser
 );

@@ -6,7 +6,7 @@
 
 ### User Sign Up
 
-Route: /api/v1/auth/signup (POST)
+Route: https://books-catalogue.vercel.app/api/v1/auth/signup (POST)
 
 Request body:
 
@@ -23,8 +23,6 @@ Request body:
 ```
 
 Response: The newly created user object.
-
-Response Sample Data:
 
 ```json
 {
@@ -45,7 +43,7 @@ Response Sample Data:
 
 ### User Sign In/Login
 
-Route: /api/v1/auth/signin (POST)
+Route: https://books-catalogue.vercel.app/api/v1/auth/signin (POST)
 
 Request body:
 
@@ -57,8 +55,6 @@ Request body:
 ```
 
 Response: A object with user JWT token.
-
-Response Sample Data:
 
 ```json
 {
@@ -82,7 +78,7 @@ Decoded Token:
 
 ### Get All Users → Only Allowed For Admin
 
-Route: /api/v1/users (GET)
+Route: https://books-catalogue.vercel.app/api/v1/users (GET)
 
 Request body:
 
@@ -121,13 +117,9 @@ Response Sample Data:
 
 ### Get a Single User → Only Allowed For Admin
 
-Route: /api/v1/users/:id (GET)
-
-Request Param: :id
+Route: https://books-catalogue.vercel.app/api/v1/users/2950f0f5-ddbd-44b0-be82-9ac50ba5ab40 (GET)
 
 Response: The specified user object.
-
-Response Sample Pattern:
 
 ```json
 {
@@ -148,9 +140,7 @@ Response Sample Pattern:
 
 ### Update a Single User → Only Allowed For Admin
 
-Route: /api/v1/users/:id (PATCH)
-
-Request Param: :id
+Route: https://books-catalogue.vercel.app/api/v1/users/2950f0f5-ddbd-44b0-be82-9ac50ba5ab40 (PATCH)
 
 Request Body:
 
@@ -184,9 +174,7 @@ Response Sample Pattern:
 
 ### Delete a User → Only Allowed For Admin
 
-Route: /api/v1/users/:id ( DELETE)
-
-Request Param: :id
+Route: https://books-catalogue.vercel.app/api/v1/users/2950f0f5-ddbd-44b0-be82-9ac50ba5ab40 ( DELETE)
 
 Response: The deleted user object.
 
@@ -211,7 +199,7 @@ Response: The deleted user object.
 
 ### Create Category
 
-Route: /api/v1/categories/create-category (POST) → Only Allowed For Admin
+Route: https://books-catalogue.vercel.app/api/v1/categories/create-category (POST) → Only Allowed For Admin
 
 Request body:
 
@@ -237,7 +225,7 @@ Response: The newly created category object.
 
 ### Get All Categories
 
-Route: /api/v1/categories (GET)
+Route: https://books-catalogue.vercel.app/api/v1/categories (GET)
 
 Response: The categoryies array of objects.
 
@@ -269,9 +257,7 @@ Response: The categoryies array of objects.
 
 ### Get a Single Category
 
-Route: /api/v1/categories/:id (GET)
-
-Request Param: :id
+Route: https://books-catalogue.vercel.app/api/v1/categories/f52d345c-b804-4f78-82e7-904195b64a38 (GET)
 
 Response: The specified category object and books array of object.
 
@@ -310,7 +296,7 @@ Response: The specified category object and books array of object.
 
 ### Update a Category → Only Allowed For Admin
 
-Route: /api/v1/categories/:id (PATCH)
+Route: https://books-catalogue.vercel.app/api/v1/categories/f52d345c-b804-4f78-82e7-904195b64a38 (PATCH)
 
 Request Param: :id
 
@@ -338,7 +324,7 @@ Response: The updated category object.
 
 ### Delete a Category → Only Allowed For Admin
 
-Route: /api/v1/categories/:id ( DELETE)
+Route: https://books-catalogue.vercel.app/api/v1/categories/f52d345c-b804-4f78-82e7-904195b64a38 ( DELETE)
 
 Request Param: :id
 
@@ -360,7 +346,7 @@ Response: The deleted category object.
 
 ### Create a New Book
 
-Route: /api/v1/books/create-book (POST) → Only Allowed For Admin
+Route: https://books-catalogue.vercel.app/api/v1/books/create-book (POST) → Only Allowed For Admin
 
 Request body:
 
@@ -396,7 +382,7 @@ Response: The newly created book object with category details.
 
 ### Get All Books
 
-Route: /api/v1/books (GET)
+Route: https://books-catalogue.vercel.app/api/v1/books (GET)
 
 Request body:
 
@@ -439,7 +425,7 @@ Response: The books array of objects with paginated metadata.
 
 ### Get Books By CategoryId
 
-Route: /api/v1/books/:categoryId/category (GET)
+Route: https://books-catalogue.vercel.app/api/v1/books/f52d345c-b804-4f78-82e7-904195b64a38/category (GET)
 
 Request Param: :categoryId
 
@@ -482,7 +468,7 @@ Response: The books array of objects with paginated metadata.
 
 ### Get a Single Book
 
-Route: /api/v1/books/:id (GET)
+Route: https://books-catalogue.vercel.app/api/v1/books/7a31ec81-8843-48be-a768-fe16a3b335d4 (GET)
 
 Request Param: :id
 
@@ -507,7 +493,7 @@ Response: The specified book object.
 
 ### Update a Single Book → Only Allowed For Admin
 
-Route: /api/v1/books/:id (PATCH)
+Route: https://books-catalogue.vercel.app/api/v1/books/7a31ec81-8843-48be-a768-fe16a3b335d4 (PATCH)
 
 Request Param: :id
 
@@ -540,7 +526,7 @@ Response: The updated book object.
 
 ### Delete a book → Only Allowed for admins
 
-Route: /api/v1/books/:id ( DELETE)
+Route: https://books-catalogue.vercel.app/api/v1/books/7a31ec81-8843-48be-a768-fe16a3b335d4 ( DELETE)
 
 Request Param: :id
 
@@ -563,11 +549,11 @@ Response: The deleted book object
 }
 ```
 
-### Implement Create, Read Operations for Order Listings.
+## Implement Create, Read Operations for Order Listings.
 
 ### Create Order → Only Allowed For Customer
 
-Route: /api/v1/orders/create-order (POST)
+Route: https://books-catalogue.vercel.app/api/v1/orders/create-order (POST)
 
 Request Headers: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiY3VzdG9tZXIiLCJ1c2VySWQiOiJkNjA4MDhkYS04NDBlLTRkOTMtODNlMS04ZGZmOTI1YWViZTIiLCJpYXQiOjE2OTQwNTg4MDUsImV4cCI6MTcyNTU5NDgwNX0.Xznu0-QIkuvWbu4JAuR0A7UD2TcStulik4Trbp3EvSU"
 
@@ -601,8 +587,6 @@ Request Body:
 
 Response: The newly created order object.
 
-Response Sample Pattern:
-
 ```json
 {
     "success": true,
@@ -629,7 +613,7 @@ Response Sample Pattern:
 
 ### Get all Order → Only Allowed For Admins
 
-Route: /api/v1/orders (GET)
+Route: https://books-catalogue.vercel.app/api/v1/orders (GET)
 
 Response: The ordered array of objects.
 
@@ -678,7 +662,7 @@ Response: The ordered array of objects.
 
 ### Get all Order for specific Customers → Only Specific Customers
 
-Route: /api/v1/orders (GET)
+Route: https://books-catalogue.vercel.app/api/v1/orders (GET)
 
 Request Headers: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiY3VzdG9tZXIiLCJ1c2VySWQiOiIyOTUwZjBmNS1kZGJkLTQ0YjAtYmU4Mi05YWM1MGJhNWFiNDAiLCJpYXQiOjE2OTQzNjE1MjUsImV4cCI6MTcyNTg5NzUyNX0.pa7XmdI51JHaKpD8f4fhgFXeEqyahq9_mk8MDsUxxt4"
 
@@ -726,7 +710,7 @@ Response: The ordered array of objects.
 
 ### Get single order by Id → Only for specific customer and admins
 
-Route: /api/v1/orders/:orderId (Get)
+Route: https://books-catalogue.vercel.app/api/v1/orders/04684fd4-cdab-4fab-88b0-63d3e70fbfbd (Get)
 
 Request Headers: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiY3VzdG9tZXIiLCJ1c2VySWQiOiJkNjA4MDhkYS04NDBlLTRkOTMtODNlMS04ZGZmOTI1YWViZTIiLCJpYXQiOjE2OTQwNTg4MDUsImV4cCI6MTcyNTU5NDgwNX0.Xznu0-QIkuvWbu4JAuR0A7UD2TcStulik4Trbp3EvSU"
 
@@ -771,7 +755,7 @@ Sample Response Data:
 
 ### Get User Profile Data → Only for specific user (customer and admin)
 
-Route: /api/v1/profile (Get)
+Route: https://books-catalogue.vercel.app/api/v1/profile (Get)
 
 Request Headers: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJ1c2VySWQiOiJiNmI5OTEyNi0xNmYxLTQ2Y2EtOWFmYi0wYWM5Mjc5NWNhZjAiLCJpYXQiOjE2OTQwMDkzOTQsImV4cCI6MTcyNTU0NTM5NH0.nNYOgMpKmVQogNJ-TsS09WImF5m99e5DkjhOgtkNILU"
 
@@ -806,38 +790,39 @@ Response:
 }
 ```
 
-## Live Link: https://example.com
+## Live Link: https://books-catalogue.vercel.app/api/v1
 
 ### Application Routes:
 
-#### User
+### User
 
--   api/v1/auth/signup (POST)
--   api/v1/users (GET)
--   api/v1/users/6177a5b87d32123f08d2f5d4 (Single GET) Include an id that is saved in your database
--   api/v1/users/6177a5b87d32123f08d2f5d4 (PATCH)
--   api/v1/users/6177a5b87d32123f08d2f5d4 (DELETE) Include an id that is saved in your database
--   api/v1/profile (GET)
+-   https://books-catalogue.vercel.app/api/v1/auth/signup (POST)
+-   https://books-catalogue.vercel.app/api/v1/auth/signin (POST)
+-   https://books-catalogue.vercel.app/api/v1/users (GET)
+-   https://books-catalogue.vercel.app/api/v1/users/2950f0f5-ddbd-44b0-be82-9ac50ba5ab40 (Single GET)
+-   https://books-catalogue.vercel.app/api/v1/users/2950f0f5-ddbd-44b0-be82-9ac50ba5ab40 (PATCH)
+-   https://books-catalogue.vercel.app/api/v1/users/2950f0f5-ddbd-44b0-be82-9ac50ba5ab40 (DELETE)
+-   https://books-catalogue.vercel.app/api/v1/profile (GET)
 
 ### Category
 
--   api/v1/categories/create-category (POST)
--   api/v1/categories (GET)
--   api/v1/categories/6177a5b87d32123f08d2f5d4 (Single GET) Include an id that is saved in your database
--   api/v1/categories/6177a5b87d32123f08d2f5d4 (PATCH)
--   api/v1/categories/6177a5b87d32123f08d2f5d4 (DELETE) Include an id that is saved in your database
+-   https://books-catalogue.vercel.app/api/v1/categories/create-category (POST)
+-   https://books-catalogue.vercel.app/api/v1/categories (GET)
+-   https://books-catalogue.vercel.app/api/v1/categories/f52d345c-b804-4f78-82e7-904195b64a38 (Single GET)
+-   https://books-catalogue.vercel.app/api/v1/categories/f52d345c-b804-4f78-82e7-904195b64a38 (PATCH)
+-   https://books-catalogue.vercel.app/api/v1/categories/f52d345c-b804-4f78-82e7-904195b64a38 (DELETE)
 
 ### Books
 
--   api/v1/books/create-book (POST)
--   api/v1/books (GET)
--   api/v1/books/:categoryId/category (GET)
--   api/v1/books/:id (GET)
--   api/v1/books/:id (PATCH)
--   api/v1/books/:id (DELETE)
+-   https://books-catalogue.vercel.app/api/v1/books/create-book (POST)
+-   https://books-catalogue.vercel.app/api/v1/books (GET)
+-   https://books-catalogue.vercel.app/api/v1/books/f52d345c-b804-4f78-82e7-904195b64a38/category (GET)
+-   https://books-catalogue.vercel.app/api/v1/books/7a31ec81-8843-48be-a768-fe16a3b335d4 (GET)
+-   https://books-catalogue.vercel.app/api/v1/books/7a31ec81-8843-48be-a768-fe16a3b335d4 (PATCH)
+-   https://books-catalogue.vercel.app/api/v1/books/7a31ec81-8843-48be-a768-fe16a3b335d4 (DELETE)
 
 ### Orders
 
--   api/v1/orders/create-order (POST)
--   api/v1/orders (GET)
--   api/v1/orders/:orderId (GET)
+-   https://books-catalogue.vercel.app/api/v1/orders/create-order (POST)
+-   https://books-catalogue.vercel.app/api/v1/orders (GET)
+-   https://books-catalogue.vercel.app/api/v1/orders/04684fd4-cdab-4fab-88b0-63d3e70fbfbd (GET)
