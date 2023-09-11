@@ -563,6 +563,166 @@ Response: The deleted book object
 }
 ```
 
+### Implement Create, Read Operations for Order Listings.
+
+### Create Order → Only Allowed For Customer
+
+Route: /api/v1/orders/create-order (POST)
+
+Request Headers: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiY3VzdG9tZXIiLCJ1c2VySWQiOiJkNjA4MDhkYS04NDBlLTRkOTMtODNlMS04ZGZmOTI1YWViZTIiLCJpYXQiOjE2OTQwNTg4MDUsImV4cCI6MTcyNTU5NDgwNX0.Xznu0-QIkuvWbu4JAuR0A7UD2TcStulik4Trbp3EvSU"
+
+Decoded Token:
+
+```json
+{
+    "role": "customer",
+    "userId": "d60808da-840e-4d93-83e1-8dff925aebe2",
+    "iat": 1694058805,
+    "exp": 1725594805
+}
+```
+
+Request Body:
+
+```json
+{
+    "orderedBooks": [
+        {
+            "bookId": "efb2949f-8f85-42f6-a9ce-8c177814e2ec",
+            "quantity": 3
+        },
+        {
+            "bookId": "c9b2d566-1d8a-4fe1-8d15-07ed4f7c5dc9",
+            "quantity": 2
+        }
+    ]
+}
+```
+
+Response: The newly created order object.
+
+Response Sample Pattern:
+
+```json
+{
+    "success": true,
+    "statusCode": 200,
+    "message": "Order created successfully",
+    "data": {
+        "id": "fe659812-5b10-4b6d-b88d-7b9e60902a67",
+        "userId": "b2e06b3e-87bf-4b11-a74a-29c66f8f48df",
+        "orderedBooks": [
+            {
+                "bookId": "efb2949f-8f85-42f6-a9ce-8c177814e2ec",
+                "quantity": 3
+            },
+            {
+                "bookId": "c9b2d566-1d8a-4fe1-8d15-07ed4f7c5dc9",
+                "quantity": 2
+            }
+        ],
+        "status": "pending",
+        "createdAt": "2023-08-28T10:00:00Z"
+    }
+}
+```
+
+### Get all Order → Only Allowed For Admins
+
+Route: /api/v1/orders (GET)
+
+Response: The ordered array of objects.
+
+```json
+{
+    "success": true,
+    "statusCode": 200,
+    "message": "Orders retrieved successfully",
+    "data": [
+        {
+            "id": "92e9d108-01cd-46fe-af99-e53092502e58",
+            "userId": "d60808da-840e-4d93-83e1-8dff925aebe2",
+            "orderedBooks": [
+                {
+                    "bookId": "b1e3b1d7-4af7-4998-80fa-37f1bf4d4dc8",
+                    "quantity": 2
+                },
+                {
+                    "bookId": "c995bffc-308c-493e-97b0-d39a916cd195",
+                    "quantity": 1
+                }
+            ],
+            "status": "pending",
+            "createdAt": "2023-09-10T14:21:09.867Z"
+        },
+        {
+            "id": "4b4da636-a35d-48bd-be81-fcbc8b1d1e3d",
+            "userId": "2950f0f5-ddbd-44b0-be82-9ac50ba5ab40",
+            "orderedBooks": [
+                {
+                    "bookId": "b1e3b1d7-4af7-4998-80fa-37f1bf4d4dc8",
+                    "quantity": 2
+                },
+                {
+                    "bookId": "c995bffc-308c-493e-97b0-d39a916cd195",
+                    "quantity": 2
+                }
+            ],
+            "status": "pending",
+            "createdAt": "2023-09-10T16:02:02.252Z"
+        }
+        // More orders...
+    ]
+}
+```
+
+### Get all Order for specific Customers → Only Specific Customers
+
+Route: /api/v1/orders (GET)
+
+Request Headers: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiY3VzdG9tZXIiLCJ1c2VySWQiOiIyOTUwZjBmNS1kZGJkLTQ0YjAtYmU4Mi05YWM1MGJhNWFiNDAiLCJpYXQiOjE2OTQzNjE1MjUsImV4cCI6MTcyNTg5NzUyNX0.pa7XmdI51JHaKpD8f4fhgFXeEqyahq9_mk8MDsUxxt4"
+
+Decoded Token:
+
+```json
+{
+    "role": "customer",
+    "userId": "2950f0f5-ddbd-44b0-be82-9ac50ba5ab40",
+    "iat": 1694361525,
+    "exp": 1725897525
+}
+```
+
+Response: The ordered array of objects.
+
+```json
+{
+    "statusCode": 200,
+    "success": true,
+    "message": "🆗 Orders Data fetched successfully",
+    "data": [
+        {
+            "id": "4b4da636-a35d-48bd-be81-fcbc8b1d1e3d",
+            "userId": "2950f0f5-ddbd-44b0-be82-9ac50ba5ab40",
+            "orderedBooks": [
+                {
+                    "bookId": "b1e3b1d7-4af7-4998-80fa-37f1bf4d4dc8",
+                    "quantity": 2
+                },
+                {
+                    "bookId": "c995bffc-308c-493e-97b0-d39a916cd195",
+                    "quantity": 2
+                }
+            ],
+            "status": "pending",
+            "createdAt": "2023-09-10T16:02:02.252Z"
+        }
+        // More orders
+    ]
+}
+```
+
+
 
 ## Live Link: https://example.com
 
