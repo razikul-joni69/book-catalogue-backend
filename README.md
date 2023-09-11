@@ -722,7 +722,89 @@ Response: The ordered array of objects.
 }
 ```
 
+# Bonus Part:
 
+### Get single order by Id → Only for specific customer and admins
+
+Route: /api/v1/orders/:orderId (Get)
+
+Request Headers: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiY3VzdG9tZXIiLCJ1c2VySWQiOiJkNjA4MDhkYS04NDBlLTRkOTMtODNlMS04ZGZmOTI1YWViZTIiLCJpYXQiOjE2OTQwNTg4MDUsImV4cCI6MTcyNTU5NDgwNX0.Xznu0-QIkuvWbu4JAuR0A7UD2TcStulik4Trbp3EvSU"
+
+Decoded Token:
+
+```json
+{
+    "role": "customer",
+    "userId": "d60808da-840e-4d93-83e1-8dff925aebe2",
+    "iat": 1694058805,
+    "exp": 1725594805
+}
+```
+
+Sample Response Data:
+
+```json
+{
+    "statusCode": 200,
+    "success": true,
+    "message": "🆗 Order Data fetched successfully",
+    "data": [
+        {
+            "id": "04684fd4-cdab-4fab-88b0-63d3e70fbfbd",
+            "userId": "d60808da-840e-4d93-83e1-8dff925aebe2",
+            "orderedBooks": [
+                {
+                    "bookId": "b1e3b1d7-4af7-4998-80fa-37f1bf4d4dc8",
+                    "quantity": 1
+                },
+                {
+                    "bookId": "c995bffc-308c-493e-97b0-d39a916cd195",
+                    "quantity": 1
+                }
+            ],
+            "status": "pending",
+            "createdAt": "2023-09-10T15:57:23.355Z"
+        }
+    ]
+}
+```
+
+### Get User Profile Data → Only for specific user (customer and admin)
+
+Route: /api/v1/profile (Get)
+
+Request Headers: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWRtaW4iLCJ1c2VySWQiOiJiNmI5OTEyNi0xNmYxLTQ2Y2EtOWFmYi0wYWM5Mjc5NWNhZjAiLCJpYXQiOjE2OTQwMDkzOTQsImV4cCI6MTcyNTU0NTM5NH0.nNYOgMpKmVQogNJ-TsS09WImF5m99e5DkjhOgtkNILU"
+
+Decoded Token:
+
+```json
+{
+    "role": "admin",
+    "userId": "b6b99126-16f1-46ca-9afb-0ac92795caf0",
+    "iat": 1694009394,
+    "exp": 1725545394
+}
+```
+
+Response:
+
+```json
+{
+    "statusCode": 200,
+    "success": true,
+    "message": "🆗 Profile fetched successfully",
+    "data": {
+        "id": "b6b99126-16f1-46ca-9afb-0ac92795caf0",
+        "name": "Admin Joni",
+        "email": "admin@gmail.com",
+        "password": "$2b$10$A/1PN0CDb3BYpjee9cHL5uX100UJqs7joyRAHhKCa50Y6P949u5V2",
+        "role": "admin",
+        "contactNo": "01623208660",
+        "address": "Dhaka, Bangladesh",
+        "profileImg": "user.jpg"
+    }
+}
+```
 
 ## Live Link: https://example.com
 
